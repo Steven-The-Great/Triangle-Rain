@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>a game</title>
+  <style>
+  </style>
+</head>
+<body>
+  <!-- <canvas id="canvas" width="100px" height="80px"></canvas> -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.2/p5.min.js"></script>
+  <script>
+
+  var g;
+  var triangles = [];
+
+  function setup() {
+    g = new Triangle(100,100);
+    createCanvas(800,600);
+    for(let i = 0; i < 5; i++) {
+      triangles.push(new Triangle(random(0,800),random(-500,0)));
+    }
+}
+
+function draw() {
+background(0, 102, 25);
+for(let i = 0; i < triangles.length; i++) {
+  triangles[i].show();
+  triangles[i].update();
+}
+}
+
+function Triangle(x,y) {
+  // var xPoints = [];
+  // var yPoints = [];
+  var firstpoint = {
+    x: x,
+    y: y
+  }
+
+  function createPoints(point) {
+    // for(let i = 0; i < count; i++) {
+    //   let enemy = new Enemy(random(-50, 0), random(0, HEIGHT));
+    //   enemies.push(enemy);
+    // }
+    // point = {
+    //   x: 10,
+    //   y: 10
+    // }
+
+    var points = {
+      one: {
+        x: point.x,
+        y: point.y
+      },
+      two: {
+        x: point.x + 50,
+        y: point.y
+      },
+      three: {
+        x: point.x + 50,
+        y: point.y + 50
+      }
+    }
+
+    return points
+  }
+
+  function update() {
+    var gravity = random(1,5);
+    points.one.y += gravity;
+    points.two.y += gravity;
+    points.three.y += gravity;
+  }
+
+  var points = createPoints(firstpoint);
+  function show() {
+   triangle(points.one.x, points.one.y,points.two.x,points.two.y,points.three.x,points.three.y);
+  }
+  return {
+    show,
+    update
+  }
+}
+
+  </script>
+</body>
+</html>
